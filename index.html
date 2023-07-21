@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .timer {
+      width: 350px;
+      text-align: center;
+    }
+
+    .time {
+      font-size: 60px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button {
+      font-size: 20px;
+      padding: 8px 20px;
+      margin: 10px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Optional style for the "Start" button */
+    .button.start {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* Optional style for the "Stop" button. You can style it further if you want and will i wear school uniform because me i dont want to wear it ooo */
+    .button.stop {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">
+    <div class="time" id="display">24:00:00:00</div>
+    <div class="buttons">
+      <div class="button start" onclick="startTimer()">Start</div>
+      <div class="button stop" onclick="stopTimer()">Stop</div>
+    </div>
+  </div>
+  <script>
+    let countdownInterval;
+    const totalTimeInSeconds = 24 * 60 * 60; // 24 hours in seconds you can seperate the codes i you want i.e seperating css html an javascript but i did it like this to save time
+
+    function formatTime(totalSeconds) {
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      const seconds = totalSeconds % 60;
+
+      return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function updateDisplay(totalSeconds) {
+      const displayElement = document.getElementById('display');
+      displayElement.textContent = formatTime(totalSeconds);
+    }
+
+    function startTimer() {
+      let remainingTimeInSeconds = totalTimeInSeconds;
+      updateDisplay(remainingTimeInSeconds);
+
+      countdownInterval = setInterval(() => {
+        remainingTimeInSeconds--;
+        updateDisplay(remainingTimeInSeconds);
+
+        if (remainingTimeInSeconds <= 0) {
+          clearInterval(countdownInterval);
+          alert("Countdown finished!");
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(countdownInterval);
+    }
+  </script>
+</body>
+</html>
